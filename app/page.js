@@ -5,6 +5,8 @@ import Platform from "./components/Platform";
 import SectionMovies from "./components/SectionMovies";
 import SectionPopular from "./components/SectionPopular";
 import PreviewSeries from "./components/PreviewSeries";
+import SectionDouble from "./components/SectionDouble";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
       <SectionMovies/>
       <SectionPopular/>
       <PreviewSeries/>
+      <SectionDouble/>
+      <Footer/>
     </div>
   );
 }

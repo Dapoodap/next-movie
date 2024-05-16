@@ -8,7 +8,7 @@ function SectionPopular() {
   return (
     <div className="w-full px-2 py-3 mt-10 sm:px-10">
       <h1 className="text-4xl font-extrabold text-center text-white sm:text-left">Popular In This Week</h1>
-      <div className="flex flex-wrap items-center gap-6 mt-10 ">
+      <div className="flex flex-wrap items-center justify-center gap-6 mt-10 mb-10 ">
       <div className="card max-w-[270px] min-h-[140px] px-2 rounded-lg flex justify-between gap-5 items-center">
         <h1 className='text-5xl font-extrabold text-white'>1</h1>
         <div className="small-card w-[97px] h-[113px] rounded-lg" style={{
