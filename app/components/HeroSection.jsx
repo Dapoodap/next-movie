@@ -1,10 +1,8 @@
-"use client"
 import React from 'react';
 import { IoPlay } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
-import { useQuery } from '@tanstack/react-query';
 
-function HeroSection() {
+async function HeroSection() {
   const url_image = "https://image.tmdb.org/t/p/original/";
   const url_PopularMovies = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
   function truncateString(str) {
@@ -17,20 +15,9 @@ function HeroSection() {
       return str;
     }
   }
-  const FetchPopularMovies = async () => {
-    const response = await fetch(url_PopularMovies);
-    return await response.json();
-  };
-
-  const {
-    data: movieData,
-    error: movieError,
-    isLoading: movieLoading,
-  } = useQuery({
-    queryKey: ["randomPopular"],
-    queryFn: FetchPopularMovies,
-  });
-
+  const response = await fetch(url_PopularMovies);
+  const movieData = await response.json()
+  
   function getRandomIndex(array) {
     if (array.length === 0) {
       return null;
@@ -40,7 +27,7 @@ function HeroSection() {
   }
 
   // Memastikan bahwa data film tersedia dan tidak sedang dimuat
-  if (movieLoading || !movieData) {
+  if (!movieData) {
     return <><div role="status">
     <svg
       aria-hidden="true"
@@ -70,7 +57,7 @@ function HeroSection() {
     <div className='relative max-w-full h-[580px]'>
       <div style={{ backgroundImage: `url(${url_image + randomMovie.poster_path})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'top center' }} className='absolute inset-0'>
         {/* Background image */}
-        {console.log(randomMovie)}
+
       </div>
 
       {/* Gradient overlay */}
@@ -78,7 +65,7 @@ function HeroSection() {
 
       {/* Content */}
       <div className='max-w-[800px] min-h-[200px] text-left absolute inset-x-0 flex flex-col items-start sm:px-14 px-5 text-white sm:bottom-16 bottom-10'>
-        <h1 className='text-4xl font-bold'>{randomMovie.original_title}</h1>
+        <h1 className='text-5xl font-bold'>{randomMovie.original_title}</h1>
         <p className='mt-2 text-xl'>{truncateString(randomMovie.overview)}</p>
         <div className='flex items-center gap-4 mt-5'>
           <button className="flex items-center gap-3 px-5 py-4 bg-green-600 rounded-lg hover:bg-green-700 btn1">

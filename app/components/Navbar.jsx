@@ -16,7 +16,7 @@ function Navbar() {
   return (
     <div className='absolute z-50 flex items-center justify-between w-full px-5 py-5 bg-transparent sm:px-14'>
       <div className='logo'>
-        <Image src={logo} width={80} height={80} alt='logo' />
+        <Image src={logo} width={150} height={150} alt='logo' />
       </div>
       <div className='hidden gap-4 text-lg text-white sm:flex menu'>
         <a href="#" className='transition duration-300 ease-in-out hover:text-gray-300'>Home</a>

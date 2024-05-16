@@ -1,45 +1,21 @@
-"use client";
-import cover from "@/public/assets/poster.jpg";
+
 import { FaStar } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 
-function SectionMovies() {
+async function SectionMovies() {
   const url_image = "https://image.tmdb.org/t/p/original/";
   const url_PopularMovies = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
   const url_genre = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
 
-  const FetchPopularMovies = async () => {
-    const response = await fetch(url_PopularMovies);
-    return await response.json();
-  };
-
-  const FetchGenres = async () => {
-    const response = await fetch(url_genre);
-    return await response.json();
-  };
-
-  const {
-    data: movieData,
-    error: movieError,
-    isLoading: movieLoading,
-  } = useQuery({
-    queryKey: ["nowPlayingMovies"],
-    queryFn: FetchPopularMovies,
-  });
-
-  const {
-    data: genreData,
-    error: genreError,
-    isLoading: genreLoading,
-  } = useQuery({
-    queryKey: ["Genres"],
-    queryFn: FetchGenres,
-  });
+  const responseM = await fetch(url_PopularMovies);
+  const responseG = await fetch(url_genre);
+  const movieData = await responseM.json()
+  const genresData = await responseG.json()
 
   // Fungsi untuk mendapatkan nama genre berdasarkan id
   const getGenreNameById = (genreIds) => {
-    if (!genreData || !genreData.genres) return "";
-    const genres = genreData.genres.filter((genre) =>
+    if (!genresData || !genresData.genres) return "";
+    const genres = genresData .genres.filter((genre) =>
       genreIds.includes(genre.id)
     );
     return genres.map((genre) => genre.name).join(", ");
@@ -56,7 +32,7 @@ function SectionMovies() {
         </h1>
       </div>
       <div className="flex flex-wrap justify-around gap-1 mt-10">
-        {movieLoading && (
+      {!movieData && (
           <div role="status">
             <svg
               aria-hidden="true"
@@ -77,7 +53,7 @@ function SectionMovies() {
             <span class="sr-only">Loading...</span>
           </div>
         )}
-        {movieData &&
+       {movieData &&
           movieData.results &&
           movieData.results.slice(0, 4).map((item) => (
             <div
