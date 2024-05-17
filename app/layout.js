@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ReactQueryProvider from "./components/ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +16,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/images/cinema.ico" type="image/x-icon" />
       </head>
       <body className={inter.className}>
-        <ReactQueryProvider>
-          {children}
-        </ReactQueryProvider>
+        {children}
       </body>
     </html>
   );

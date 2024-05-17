@@ -9,9 +9,10 @@ import SectionDouble from "./components/SectionDouble";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  
   return (
     <div className="bg-[#0d0c0f]">
-      <Navbar/>
+      <Navbar />
       <HeroSection/>
       <Platform/>
       <SectionMovies/>

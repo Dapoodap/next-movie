@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  transition: all 300ms ease-in-out;
+}
 .embla {
     overflow: hidden;
   }
