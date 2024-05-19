@@ -5,12 +5,15 @@ import logo from '@/public/assets/Pilem.png';
 import { CiSearch } from "react-icons/ci";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
+import { useRouter } from 'next/navigation';
 
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const router = useRouter();
   
   
 
@@ -24,7 +27,7 @@ function Navbar() {
     }
   };
   const resetForm = () => {
-    setSearchQuery('')
+    setIsSearch(false)
   };
 
   const handleSearchChange = (e) => {
@@ -33,7 +36,8 @@ function Navbar() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
-    window.location.href =`http://localhost:3000/search/${searchQuery}`
+    
+    router.push(`/search/${searchQuery}`);
 
     // Add your search handling logic here (optional)
   
@@ -54,9 +58,9 @@ function Navbar() {
         <a href="#" className='transition duration-300 ease-in-out hover:text-gray-300'>About</a>
       </div>
       <div className='items-center hidden gap-2 sm:flex btn-nav'>
-        <div className='flex items-center gap-3'>
+        <div className={`relative flex items-center gap-3 ${isSearch ? 'px-8' : 'px-0'}`}>
           <CiSearch
-            className={`mr-5 text-2xl text-white ${isSearch || searchQuery ? 'hidden' : 'block'}`}
+            className={`cursor-pointer mr-5 text-2xl text-white ${isSearch || searchQuery ? 'hidden' : 'block'}`}
             onClick={toggleSearch}
           />
           <form
@@ -70,20 +74,19 @@ function Navbar() {
               onChange={handleSearchChange}
               required
             />
-            {searchQuery ? <button type='submit' className='absolute top-0 bottom-0 right-0 px-5 m-auto'>
-              <MdClose className='text-2xl text-black'/>
-            </button> :<button type='submit' className='absolute top-0 bottom-0 right-0 px-5 m-auto'>
-             <CiSearch className='text-2xl text-black'/>
-            </button> }
-            
-            
+            <button type='submit' className='absolute top-0 bottom-0 right-0 px-5 m-auto'>
+              <CiSearch className='text-2xl text-black'/>
+            </button> 
           </form>
+          <button onClick={resetForm} className={`absolute top-0 bottom-0 right-0 m-auto ${isSearch ? 'block' :'hidden'}`}>
+              <MdClose className='text-2xl text-black'/>
+            </button> 
         </div>
-        <button className="px-4 py-2 font-bold text-white transition duration-300 ease-in-out bg-transparent border rounded hover:bg-blue-700">
-          Button
+        <button className="px-4 py-2 font-bold text-white transition duration-300 ease-in-out bg-transparent border rounded hover:bg-green-600">
+          Login
         </button>
-        <button className="px-4 py-2 font-bold text-white transition duration-300 ease-in-out bg-green-800 rounded hover:bg-blue-700">
-          Button
+        <button className="px-4 py-2 font-bold text-white transition duration-300 ease-in-out bg-green-800 rounded hover:bg-green-600">
+          Sign Up
         </button>
       </div>
       <div className='sm:hidden'>
